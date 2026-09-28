@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Arugam Bay Tour 2026 | RSC (Uva) Bus Reservation</title>
+  
+  <!-- Modern Inter & Outfit Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --accent: #0ea5e9;
+      --bg: #090d16;
+      --surface: #111827;
+      --surface-card: rgba(17, 24, 39, 0.7);
+      --surface-border: rgba(255, 255, 255, 0.08);
+      --text: #f9fafb;
+      --text-muted: #94a3b8;
+      
+      --seat-avail: #10b981;
+      --seat-avail-glow: rgba(16, 185, 129, 0.35);
+      --seat-selected: #38bdf8;
+      --seat-booked: #334155;
+      --seat-committee: #f59e0b;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 95px;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--surface-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.75rem 1rem;
+    }
+
+    .top-nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: white;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .btn-ghost.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(14, 165, 233, 0.12);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1240px;
+      margin: 1.2rem auto 0;
+      padding: 0 1rem;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #0369a1 0%, #0c4a6e 60%, #082f49 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      padding: 0.28rem 0.7rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0.5rem 0 0.3rem;
+      line-height: 1.15;
+    }
+
+    .hero-subtitle {
+      font-size: 0.85rem;
+      color: #bae6fd;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .hero-fare-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.65rem;
+      margin-top: 1.1rem;
+    }
+
+    .fare-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 0.65rem 0.85rem;
+    }
+
+    .fare-card .f-label {
+      font-size: 0.68rem;
+      color: #93c5fd;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .fare-card .f-price {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Accordion Panels */
+    .expand-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      margin-top: 0.75rem;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .expand-header {
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .expand-header:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.5rem;
+      padding: 0.9rem;
+      border-top: 1px solid var(--surface-border);
+      background: #090d16;
+    }
+
+    .schedule-step {
+      background: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+    }
+
+    .step-time {
+      background: rgba(2, 132, 199, 0.2);
+      color: #38bdf8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    /* Main Split Layout */
+    .main-grid {
+      max-width: 1240px;
+      margin: 1.25rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 1fr 410px;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 992px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 20px;
+      padding: 1.35rem;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0.25rem 0 1rem;
+    }
+
+    /* Connection Live Indicator */
+    .connection-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #090d16;
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.78rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .live-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--success);
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.5; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.5; }
+    }
+
+    .btn-sync {
+      background: transparent;
+      border: none;
+      color: #38bdf8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .btn-sync:hover {
+      text-decoration: underline;
+    }
+
+    /* Seat Color Legend */
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 0.65rem 0.85rem;
+      border-radius: 12px;
+      border: 1px solid var(--surface-border);
+      margin-bottom: 1.3rem;
+      font-size: 0.76rem;
+      font-weight: 500;
+    }
+
+    .legend-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+    }
+
+    .legend-dot.avail { background: var(--seat-avail); }
+    .legend-dot.sel { background: var(--seat-selected); }
+    .legend-dot.com { background: var(--seat-committee); }
+    .legend-dot.bkd { background: var(--seat-booked); }
+
+    /* Realistic Ergonomic Bus Deck */
+    .bus-container {
+      background: linear-gradient(180deg, #0e1526 0%, #0a0f1d 100%);
+      border: 3px solid #1e293b;
+      border-radius: 40px 40px 24px 24px;
+      padding: 1.4rem 0.6rem 2rem;
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    .bus-front-cap {
+      background: #111927;
+      border: 2px dashed #334155;
+      border-radius: 20px;
+      padding: 0.65rem 1rem;
+      margin-bottom: 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #94a3b8;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .driver-wheel {
+      width: 36px;
+      height: 36px;
+      background: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .bus-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .bus-row {
+      display: grid;
+      grid-template-columns: repeat(2, 44px) 32px repeat(3, 44px);
+      justify-content: center;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .bus-row.last-row {
+      grid-template-columns: repeat(2, 44px) 44px repeat(3, 44px);
+      gap: 6px;
+    }
+
+    .aisle-label {
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    /* Premium 3D Seat Buttons */
+    .seat-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      position: relative;
+      touch-action: manipulation;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--seat-avail);
+      color: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .seat-button:active:not(:disabled) {
+      transform: scale(0.94);
+    }
+
+    .seat-button.selected {
+      background: var(--seat-selected);
+      color: #090d16;
+      font-weight: 800;
+      border-color: #ffffff;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+      transform: scale(1.05);
+    }
+
+    .seat-button.committee {
+      background: var(--seat-committee);
+      color: #090d16;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .seat-button.booked {
+      background: var(--seat-booked);
+      color: #64748b;
+      cursor: not-allowed;
+      opacity: 0.65;
+      box-shadow: none;
+    }
+
+    /* Form & Input Elements */
+    .form-group {
+      margin-bottom: 1.05rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 0.35rem;
+    }
+
+    .req-star {
+      color: var(--danger);
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      background: #090d16;
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+      color: #fff;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+    }
+
+    /* Pricing Summary Box */
+    .pricing-box {
+      background: #090d16;
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .price-row.total {
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      padding-top: 0.6rem;
+      margin-top: 0.6rem;
+      margin-bottom: 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #38bdf8;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: white;
+      border: none;
+      padding: 0.95rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn-primary:disabled {
+      background: #334155;
+      color: #64748b;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: 0.6;
+    }
+
+    .feedback-alert {
+      margin-top: 0.85rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      display: none;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .feedback-alert.loading {
+      display: block;
+      background: rgba(14, 165, 233, 0.12);
+      border: 1px solid var(--accent);
+      color: #38bdf8;
+    }
+
+    .feedback-alert.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--success);
+      color: #34d399;
+    }
+
+    /* Admin Panel Metrics & Manifest */
+    .admin-stats-grid {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .admin-stats-grid.visible {
+      display: grid;
+    }
+
+    .stat-widget {
+      background: #090d16;
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+      text-align: center;
+    }
+
+    .stat-widget .s-name {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .stat-widget .s-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 2px;
+    }
+
+    /* Manifest Table */
+    .manifest-table-wrapper {
+      overflow-x: auto;
+      margin-top: 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--surface-border);
+    }
+
+    .manifest-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .manifest-table th,
+    .manifest-table td {
+      padding: 0.65rem 0.85rem;
+      text-align: left;
+      border-bottom: 1px solid var(--surface-border);
+    }
+
+    .manifest-table th {
+      background: #090d16;
+      color: #93c5fd;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .tag-badge.paid {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .tag-badge.pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .admin-action-btn {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-right: 4px;
+    }
+
+    .admin-action-btn.btn-pay {
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
+    }
+
+    .admin-action-btn.btn-del {
+      background: rgba(239, 68, 68, 0.25);
+      color: #f87171;
+    }
+
+    /* Modern Mobile Sticky Bottom Sheet */
+    .mobile-float-sheet {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(9, 13, 22, 0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.85rem 1.1rem max(0.85rem, env(safe-area-inset-bottom));
+      z-index: 999;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.6);
+      transform: translateY(100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (max-width: 992px) {
+      .mobile-float-sheet.active {
+        display: flex;
+        transform: translateY(0);
+      }
+    }
+
+    .float-seats {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .float-total {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .float-btn {
+      background: linear-gradient(135deg, #0284c7, #0ea5e9);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.65rem 1.1rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <div class="brand-group">
+        <div class="brand-logo"><i class="fa-solid fa-bus-simple"></i></div>
+        <div>
+          <div class="brand-title">RSC (Uva) Welfare</div>
+          <div class="brand-subtitle">Arugam Bay Tour 2026</div>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button id="adminToggleBtn" class="btn-ghost" onclick="handleAdminLogin()">
+          <i class="fa-solid fa-lock"></i> <span>Admin</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner with Rates -->
+  <header class="hero">
+    <div class="hero-banner">
+      <div class="hero-meta">
+        <i class="fa-regular fa-calendar-check"></i> Sunday, October 11, 2026
+      </div>
+      <h1 class="hero-title">Arugam Bay Annual Tour</h1>
+      <div class="hero-subtitle">
+        <span><i class="fa-solid fa-utensils"></i> All-Inclusive Meals (Breakfast + Lunch + Dinner)</span>
+        <span><i class="fa-solid fa-bus"></i> Luxury 58-Seat Coach</span>
+      </div>
+
+      <div class="hero-fare-cards">
+        <div class="fare-card">
+          <div class="f-label">Member & Family</div>
+          <div class="f-price">LKR 2,500</div>
+        </div>
+        <div class="fare-card">
+          <div class="f-label">Non-Member</div>
+          <div class="f-price">LKR 3,000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collapsible Tour Schedule -->
+    <div class="expand-card">
+      <div class="expand-header" onclick="toggleScheduleAccordion()">
+        <span><i class="fa-solid fa-route"></i> View Tour Itinerary & Schedule (8 Milestones)</span>
+        <i id="accordionIcon" class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div id="scheduleGrid" class="schedule-grid">
+        <div class="schedule-step"><span class="step-time">5:00 AM</span> Bandarawela Departure & Pickups</div>
+        <div class="schedule-step"><span class="step-time">7:30 AM</span> Breakfast at Siyambalanduwa</div>
+        <div class="schedule-step"><span class="step-time">8:15 AM</span> Departure from Siyambalanduwa</div>
+        <div class="schedule-step"><span class="step-time">9:45 AM</span> Muhudu Maha Viharaya Visit</div>
+        <div class="schedule-step"><span class="step-time">11:00 AM</span> Ulla Beach Leisure & Sightseeing</div>
+        <div class="schedule-step"><span class="step-time">1:30 PM</span> Lunch Gathering</div>
+        <div class="schedule-step"><span class="step-time">3:00 PM</span> Departure from Arugam Bay</div>
+        <div class="schedule-step"><span class="step-time">6:00 PM</span> Dinner at Siyambalanduwa</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Interaction Area -->
+  <main class="main-grid">
+
+    <!-- Bus Layout & Manifest Column -->
+    <div>
+      <div class="card">
+        
+        <!-- Admin Dashboard Bar (Hidden by default) -->
+        <div id="adminStatsBar" class="admin-stats-grid">
+          <div class="stat-widget">
+            <div class="s-name">Total Booked</div>
+            <div class="s-num" id="statTotalSeats">0 / 58</div>
+          </div>
+          <div class="stat-widget">
+            <div class="s-name">Paid</div>
+            <div class="s-num" style="color: #34d399;" id="statPaidCount">0</div>
+          </div>
+          <div class="stat-widget">
+            <div class="s-name">Pending</div>
+            <div class="s-num" style="color: #fbbf24;" id="statPendingCount">0</div>
+          </div>
+          <div class="stat-widget">
+            <div class="s-name">Revenue</div>
+            <div class="s-num" style="color: #38bdf8;" id="statRevenue">LKR 0</div>
+          </div>
+        </div>
+
+        <div class="connection-bar">
+          <div class="live-status">
+            <div class="live-dot"></div> Live Sheet Active
+          </div>
+          <button class="btn-sync" onclick="fetchLiveBookings()">
+            <i class="fa-solid fa-arrows-rotate"></i> Refresh
+          </button>
+        </div>
+
+        <h2 class="card-title"><i class="fa-solid fa-chair text-primary"></i> 58-Seat Interactive Layout</h2>
+        <p class="card-subtitle">Tap seats to select. Seats 53, 54, 55 are reserved for the Organizing Committee.</p>
+
+        <div class="legend-row">
+          <div class="legend-pill"><div class="legend-dot avail"></div> Available</div>
+          <div class="legend-pill"><div class="legend-dot sel"></div> Selected</div>
+          <div class="legend-pill"><div class="legend-dot com"></div> Committee</div>
+          <div class="legend-pill"><div class="legend-dot bkd"></div> Booked</div>
+        </div>
+
+        <!-- Realistic Bus Cabin -->
+        <div class="bus-container">
+          <div class="bus-front-cap">
+            <span><i class="fa-solid fa-chevron-up"></i> FRONT WINDSHIELD</span>
+            <div class="driver-wheel" title="Driver">🛞</div>
+          </div>
+          <div class="bus-grid" id="busGrid"></div>
+        </div>
+
+        <!-- Passenger Manifest Table -->
+        <div style="margin-top: 1.8rem; display: flex; justify-content: space-between; align-items: center;">
+          <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-clipboard-user"></i> Booking Manifest</h3>
+        </div>
+
+        <div class="manifest-table-wrapper">
+          <table class="manifest-table">
+            <thead>
+              <tr>
+                <th>Seat</th>
+                <th>Passenger</th>
+                <th>Category</th>
+                <th>Boarding</th>
+                <th>Contact</th>
+                <th>Payment</th>
+                <th id="adminActionCol" style="display:none;">Admin Action</th>
+              </tr>
+            </thead>
+            <tbody id="manifestTableBody"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Booking Form Column -->
+    <div>
+      <div class="card" id="formCard" style="position: sticky; top: 4.5rem;">
+        <h2 class="card-title"><i class="fa-solid fa-ticket"></i> Passenger Reservation</h2>
+        <p class="card-subtitle">Select seat(s) on the bus layout and provide passenger details.</p>
+
+        <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+          
+          <div class="pricing-box">
+            <div class="price-row">
+              <span>Selected Seat(s):</span>
+              <strong id="displaySelectedSeats" style="color: #38bdf8;">None</strong>
+            </div>
+            <div class="price-row">
+              <span>Breakdown:</span>
+              <span id="displayRateBreakdown">0 Seats</span>
+            </div>
+            <div class="price-row total">
+              <span>Total Payable:</span>
+              <span id="displayTotal">LKR 0</span>
+            </div>
+          </div>
+
+          <!-- 1. Passenger Name -->
+          <div class="form-group">
+            <label class="form-label" for="passengerName">1. Passenger Name <span class="req-star">*</span></label>
+            <input type="text" id="passengerName" class="form-input" placeholder="Enter full name" required>
+          </div>
+
+          <!-- 2. Category Dropdown -->
+          <div class="form-group">
+            <label class="form-label" for="passengerType">2. Category <span class="req-star">*</span></label>
+            <select id="passengerType" class="form-select" required onchange="calculateTotal()">
+              <option value="Member">Member (LKR 2,500)</option>
+              <option value="Family">Family (LKR 2,500)</option>
+              <option value="Non Member">Non-Member (LKR 3,000)</option>
+            </select>
+          </div>
+
+          <!-- 3. Boarding Location -->
+          <div class="form-group">
+            <label class="form-label" for="startingPlace">3. Boarding Point & Time <span class="req-star">*</span></label>
+            <select id="startingPlace" class="form-select" required>
+              <option value="">-- Choose Boarding Point --</option>
+              <option value="Bandarawela (5.00am)">Bandarawela (5:00 AM)</option>
+              <option value="Kumbalwela (5.15am)">Kumbalwela (5:15 AM)</option>
+              <option value="Ella (5.20am)">Ella (5:20 AM)</option>
+              <option value="Wellawaya (5.45am)">Wellawaya (5:45 AM)</option>
+            </select>
+          </div>
+
+          <!-- 4. Contact Phone -->
+          <div class="form-group">
+            <label class="form-label" for="contactNo">4. Contact / WhatsApp No <span class="req-star">*</span></label>
+            <input type="tel" id="contactNo" class="form-input" placeholder="e.g. 077 123 4567" inputmode="tel" pattern="[0-9+ \-]{9,15}" required>
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn-primary" disabled>
+            <i class="fa-solid fa-circle-check"></i> Confirm Reservation
+          </button>
+
+          <div id="feedbackAlert" class="feedback-alert"></div>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Sticky Bottom Sheet for Mobile -->
+  <div id="mobileSheet" class="mobile-float-sheet">
+    <div>
+      <div class="float-seats">Seat(s): <strong id="mSelectedSeats" style="color: #38bdf8;">None</strong></div>
+      <div class="float-total" id="mTotalAmount">LKR 0</div>
+    </div>
+    <button class="float-btn" onclick="scrollToForm()">
+      <span>Continue</span> <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+
+  <script>
+    // Live Apps Script Webhook URL
+    const GSHEET_URL = "https://script.google.com/macros/s/AKfycbwq1KkmJJrbB1-Sg3wA-lVxNIO_xLsr93dXwNg31mCM1v2NQBEL1KMI0FhiTXDQrkPIsQ/exec";
+    const COMMITTEE_SEATS = [53, 54, 55];
+    const MEMBER_PRICE = 2500;
+    const FAMILY_PRICE = 2500;
+    const NON_MEMBER_PRICE = 3000;
+    const ADMIN_PIN = "admin123";
+
+    let selectedSeats = new Set();
+    let seatBookings = {};
+    let isAdmin = false;
+
+    // Toggle Schedule Accordion
+    function toggleScheduleAccordion() {
+      const grid = document.getElementById('scheduleGrid');
+      const icon = document.getElementById('accordionIcon');
+      if (grid.style.display === 'none') {
+        grid.style.display = 'grid';
+        icon.className = 'fa-solid fa-chevron-down';
+      } else {
+        grid.style.display = 'none';
+        icon.className = 'fa-solid fa-chevron-right';
+      }
+    }
+
+    // Scroll to Form on Mobile
+    function scrollToForm() {
+      document.getElementById('formCard').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Admin Mode Prompt
+    function handleAdminLogin() {
+      if (isAdmin) {
+        if (confirm("Log out from Admin mode?")) {
+          isAdmin = false;
+          updateAdminState();
+        }
+        return;
+      }
+      const pin = prompt("Enter Committee Admin PIN:");
+      if (pin === ADMIN_PIN) {
+        isAdmin = true;
+        updateAdminState();
+      } else if (pin !== null) {
+        alert("Incorrect PIN entered.");
+      }
+    }
+
+    function updateAdminState() {
+      const btn = document.getElementById('adminToggleBtn');
+      const statsBar = document.getElementById('adminStatsBar');
+      const actionCol = document.getElementById('adminActionCol');
+
+      if (isAdmin) {
+        btn.classList.add('active');
+        btn.innerHTML = '<i class="fa-solid fa-lock-open"></i> <span>Admin Active</span>';
+        statsBar.classList.add('visible');
+        actionCol.style.display = 'table-cell';
+      } else {
+        btn.classList.remove('active');
+        btn.innerHTML = '<i class="fa-solid fa-lock"></i> <span>Admin</span>';
+        statsBar.classList.remove('visible');
+        actionCol.style.display = 'none';
+      }
+      renderManifestTable();
+    }
+
+    // Fetch Bookings from Google Sheets
+    async function fetchLiveBookings() {
+      try {
+        const response = await fetch(GSHEET_URL);
+        const data = await response.json();
+        if (data.status === "success" && data.bookedSeats) {
+          seatBookings = data.bookedSeats;
+        }
+      } catch (err) {
+        console.warn("Fallback to local cache", err);
+        seatBookings = JSON.parse(localStorage.getItem('rsc_arugambay_cache') || '{}');
+      }
+
+      // Pre-reserve Committee Seats
+      COMMITTEE_SEATS.forEach(s => {
+        if (!seatBookings[s]) {
+          seatBookings[s] = {
+            name: "Organizing Committee",
+            type: "Committee",
+            startingPlace: "Bandarawela (5.00am)",
+            contactNo: "Official",
+            paymentStatus: "Paid"
+          };
+        }
+      });
+
+      renderBusLayout();
+      renderManifestTable();
+      refreshMetrics();
+    }
+
+    // Refresh Financial Metrics
+    function refreshMetrics() {
+      const allKeys = Object.keys(seatBookings).map(Number);
+      let paid = 0;
+      let pending = 0;
+      let totalRevenue = 0;
+
+      allKeys.forEach(s => {
+        if (!COMMITTEE_SEATS.includes(s)) {
+          const item = seatBookings[s];
+          const isPaid = (item.paymentStatus === 'Paid' || item.status === 'Paid');
+          if (isPaid) paid++;
+          else pending++;
+          totalRevenue += Number(item.amount || 2500);
+        }
+      });
+
+      document.getElementById('statTotalSeats').textContent = `${allKeys.length} / 58`;
+      document.getElementById('statPaidCount').textContent = paid;
+      document.getElementById('statPendingCount').textContent = pending;
+      document.getElementById('statRevenue').textContent = `LKR ${totalRevenue.toLocaleString()}`;
+    }
+
+    // Render 58-Seat Bus Diagram
+    function renderBusLayout() {
+      const busGrid = document.getElementById('busGrid');
+      busGrid.innerHTML = '';
+      let seatNo = 1;
+
+      // Rows 1 - 11 (2 x 3 layout)
+      for (let r = 1; r <= 11; r++) {
+        const row = document.createElement('div');
+        row.className = 'bus-row';
+
+        // 2 Left Seats
+        for (let i = 0; i < 2; i++) row.appendChild(createSeatNode(seatNo++));
+
+        // Aisle Number
+        const aisle = document.createElement('div');
+        aisle.className = 'aisle-label';
+        aisle.textContent = r;
+        row.appendChild(aisle);
+
+        // 3 Right Seats
+        for (let i = 0; i < 3; i++) row.appendChild(createSeatNode(seatNo++));
+
+        busGrid.appendChild(row);
+      }
+
+      // Row 12 (Seats 56, 57, 58)
+      const lastRow = document.createElement('div');
+      lastRow.className = 'bus-row last-row';
+      lastRow.appendChild(createSeatNode(seatNo++)); // 56
+      lastRow.appendChild(createSeatNode(seatNo++)); // 57
+      
+      const rearFiller = document.createElement('div');
+      rearFiller.className = 'aisle-label';
+      rearFiller.textContent = '12';
+      lastRow.appendChild(rearFiller);
+
+      lastRow.appendChild(createSeatNode(seatNo++)); // 58
+      busGrid.appendChild(lastRow);
+    }
+
+    function createSeatNode(num) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'seat-button';
+      btn.textContent = num;
+      btn.dataset.seat = num;
+
+      if (COMMITTEE_SEATS.includes(num)) {
+        btn.classList.add('committee');
+        btn.disabled = true;
+        btn.title = `Seat ${num} (Committee Reserved)`;
+      } else if (seatBookings[num]) {
+        btn.classList.add('booked');
+        btn.disabled = true;
+        btn.title = `Seat ${num} booked by ${seatBookings[num].name}`;
+      } else {
+        if (selectedSeats.has(num)) btn.classList.add('selected');
+        btn.onclick = () => toggleSeat(num);
+      }
+      return btn;
+    }
+
+    function toggleSeat(num) {
+      if (selectedSeats.has(num)) {
+        selectedSeats.delete(num);
+      } else {
+        selectedSeats.add(num);
+        if (navigator.vibrate) navigator.vibrate(25); // Subtle mobile haptic feedback
+      }
+      updateInterface();
+    }
+
+    function calculateTotal() {
+      const type = document.getElementById('passengerType').value;
+      const count = selectedSeats.size;
+      const unit = (type === 'Non Member') ? NON_MEMBER_PRICE : MEMBER_PRICE;
+      const total = count * unit;
+
+      const seatList = count > 0 ? Array.from(selectedSeats).sort((a,b)=>a-b).join(', ') : 'None';
+      document.getElementById('displaySelectedSeats').textContent = seatList;
+      document.getElementById('displayRateBreakdown').textContent = `${count} × LKR ${unit.toLocaleString()}`;
+      document.getElementById('displayTotal').textContent = `LKR ${total.toLocaleString()}`;
+      document.getElementById('submitBtn').disabled = (count === 0);
+
+      // Mobile Bottom Sheet
+      const sheet = document.getElementById('mobileSheet');
+      if (count > 0) {
+        sheet.classList.add('active');
+        document.getElementById('mSelectedSeats').textContent = seatList;
+        document.getElementById('mTotalAmount').textContent = `LKR ${total.toLocaleString()}`;
+      } else {
+        sheet.classList.remove('active');
+      }
+    }
+
+    function updateInterface() {
+      document.querySelectorAll('.seat-button').forEach(btn => {
+        const s = parseInt(btn.dataset.seat, 10);
+        if (selectedSeats.has(s)) btn.classList.add('selected');
+        else btn.classList.remove('selected');
+      });
+      calculateTotal();
+    }
+
+    function renderManifestTable() {
+      const tbody = document.getElementById('manifestTableBody');
+      tbody.innerHTML = '';
+      const keys = Object.keys(seatBookings).map(Number).sort((a, b) => a - b);
+
+      if (keys.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="${isAdmin ? 7 : 6}" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No confirmed bookings yet.</td></tr>`;
+        return;
+      }
+
+      keys.forEach(s => {
+        const item = seatBookings[s];
+        const isPaid = (item.paymentStatus === 'Paid' || item.status === 'Paid');
+        const tr = document.createElement('tr');
+
+        let actions = '';
+        if (isAdmin) {
+          if (!COMMITTEE_SEATS.includes(s)) {
+            actions = `<td>
+              <button class="admin-action-btn btn-pay" onclick="togglePayment(${s})">${isPaid ? 'Set Pending' : 'Mark Paid'}</button>
+              <button class="admin-action-btn btn-del" onclick="releaseSeat(${s})">Release</button>
+            </td>`;
+          } else {
+            actions = `<td><span style="color:#64748b; font-size:0.7rem;">Official</span></td>`;
+          }
+        }
+
+        tr.innerHTML = `
+          <td><strong>#${s}</strong></td>
+          <td>${item.name}</td>
+          <td>${item.type}</td>
+          <td>${item.startingPlace}</td>
+          <td>${item.contactNo}</td>
+          <td><span class="tag-badge ${isPaid ? 'paid' : 'pending'}">${isPaid ? 'Paid' : 'Pending'}</span></td>
+          ${actions}
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Toggle Payment Status
+    function togglePayment(seat) {
+      if (!seatBookings[seat]) return;
+      const current = (seatBookings[seat].paymentStatus === 'Paid' || seatBookings[seat].status === 'Paid');
+      const nextStatus = current ? 'Pending' : 'Paid';
+      seatBookings[seat].paymentStatus = nextStatus;
+      seatBookings[seat].status = nextStatus;
+
+      fetch(GSHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'updatePayment', seatNumber: seat, paymentStatus: nextStatus })
+      });
+
+      renderManifestTable();
+      refreshMetrics();
+    }
+
+    // Release / Cancel Seat
+    function releaseSeat(seat) {
+      if (!confirm(`Cancel and release Seat #${seat} back to available?`)) return;
+      delete seatBookings[seat];
+
+      fetch(GSHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'releaseSeat', seatNumber: seat })
+      });
+
+      renderBusLayout();
+      renderManifestTable();
+      refreshMetrics();
+    }
+
+    // Submit Reservation
+    async function handleBookingSubmit(e) {
+      e.preventDefault();
+      if (selectedSeats.size === 0) return;
+
+      const name = document.getElementById('passengerName').value.trim();
+      const type = document.getElementById('passengerType').value;
+      const startingPlace = document.getElementById('startingPlace').value;
+      const contactNo = document.getElementById('contactNo').value.trim();
+      const alertBox = document.getElementById('feedbackAlert');
+      const submitBtn = document.getElementById('submitBtn');
+
+      const unit = (type === 'Non Member') ? NON_MEMBER_PRICE : MEMBER_PRICE;
+      const seatsArr = Array.from(selectedSeats).sort((a, b) => a - b);
+
+      submitBtn.disabled = true;
+      alertBox.className = 'feedback-alert loading';
+      alertBox.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Reserving seat(s) and syncing with Google Sheets...';
+
+      try {
+        for (let seat of seatsArr) {
+          await fetch(GSHEET_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              seatNumber: seat,
+              passengerName: name,
+              category: type,
+              startingPlace: startingPlace,
+              connectNo: contactNo,
+              amount: unit,
+              paymentStatus: "Pending"
+            })
+          });
+
+          seatBookings[seat] = {
+            name: name,
+            type: type,
+            startingPlace: startingPlace,
+            contactNo: contactNo,
+            amount: unit,
+            paymentStatus: "Pending"
+          };
+        }
+
+        alertBox.className = 'feedback-alert success';
+        alertBox.innerHTML = `✓ Successfully reserved Seat(s) <strong>${seatsArr.join(', ')}</strong> for <strong>${name}</strong>!`;
+      } catch (err) {
+        console.error(err);
+      }
+
+      selectedSeats.clear();
+      document.getElementById('passengerName').value = '';
+      document.getElementById('contactNo').value = '';
+      document.getElementById('startingPlace').value = '';
+
+      renderBusLayout();
+      renderManifestTable();
+      calculateTotal();
+      refreshMetrics();
+
+      setTimeout(fetchLiveBookings, 2000);
+      setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
+    }
+
+    // Auto-fetch on load & background poll every 15s
+    window.onload = () => {
+      fetchLiveBookings();
+      setInterval(fetchLiveBookings, 15000);
+    };
+  </script>
+</body>
+</html>
